@@ -15,4 +15,5 @@
 * Main messages
 ** Micro-Service (done right) are still you best option to scale an engineering org
 ** Events (done right) are still your best bet to scale a system of micro-services
-** Let's NOT go all-in on all of it (pick-and-choose instead) 
+** Let's NOT go all-in on all of it (pick-and-choose instead)
+** Test ...
