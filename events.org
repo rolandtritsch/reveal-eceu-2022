@@ -1,0 +1,18 @@
+#+title: Micro-Services and Events
+#+subtitle: Friends or Foes
+#+date: <2022-01-01>
+#+author: Roland Tritsch
+#+email: roland@tritsch.email
+#+options: timestamp:t date:nil title:t author:t
+#+options: toc:nil num:nil
+#+reveal_theme: beige
+#+reveal_init_options: width:"60%"
+
+* Introduction
+** The Company
+** The Platform
+** The Roland
+* Main messages
+** Micro-Service (done right) are still you best option to scale an engineering org
+** Events (done right) are still your best bet to scale a system of micro-services
+** Let's NOT go all-in on all of it (pick-and-choose instead) 

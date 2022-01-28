@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Micro-Services and Events</title>
+<meta name="author" content="(Roland Tritsch)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/beige.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Micro-Services and Events</h1><p class="subtitle">(Friends or Foes)</p>
+<h2 class="author">Roland Tritsch</h2><p class="date">Created: 2022-01-28 Fri 07:51</p>
+</section>
+
+<section>
+<section id="slide-orgbb4719c">
+<h2 id="orgbb4719c">Introduction</h2>
+<div class="outline-text-2" id="text-orgbb4719c">
+</div>
+</section>
+<section id="slide-orgea12e61">
+<h3 id="orgea12e61">The Company</h3>
+</section>
+<section id="slide-org504ddb7">
+<h3 id="org504ddb7">The Platform</h3>
+</section>
+<section id="slide-org05cdc8e">
+<h3 id="org05cdc8e">The Roland</h3>
+</section>
+</section>
+<section>
+<section id="slide-org3145141">
+<h2 id="org3145141">Main messages</h2>
+<div class="outline-text-2" id="text-org3145141">
+</div>
+</section>
+<section id="slide-org8ca27f6">
+<h3 id="org8ca27f6">Micro-Service (done right) are still you best option to scale an engineering org</h3>
+</section>
+<section id="slide-orgd1c0d53">
+<h3 id="orgd1c0d53">Events (done right) are still your best bet to scale a system of micro-services</h3>
+</section>
+<section id="slide-org28e4d1f">
+<h3 id="org28e4d1f">Let's NOT go all-in on all of it (pick-and-choose instead)</h3>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+width:"60%",
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+
+</script>
+</body>
+</html>
