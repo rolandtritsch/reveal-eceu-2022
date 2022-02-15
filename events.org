@@ -3,8 +3,12 @@
 #+date: <2022-01-01>
 #+author: Roland Tritsch
 #+email: roland@tritsch.email
-#+options: timestamp:t date:nil title:t author:t
-#+options: toc:nil num:nil
+#+options: timestamp:t
+#+options: date:nil
+#+options: title:t
+#+options: author:t
+#+options: toc:nil
+#+options: num:nil
 #+reveal_theme: beige
 #+reveal_init_options: width:"60%"
 
@@ -16,4 +20,14 @@
 ** Micro-Service (done right) are still you best option to scale an engineering org
 ** Events (done right) are still your best bet to scale a system of micro-services
 ** Let's NOT go all-in on all of it (pick-and-choose instead)
-** Test ...
+* The Company
+** Founded ...
+** Number of employees/engineers ...
+** Meaningful/personal conversations at scale
+** AI-assisted conversational marketing at it's best
+* The Platform
+** Elixir, Typescript, Go, Swift, ..., RabbitMQ, Postgres, ..., Mesos, Singlarity, ...
+** Shared-Nothing Micro-Services using (at-least-once) events for (eventually consistent) state-propagation
+** Number of Services
+** Number of Events
+** Response rates, engagement, ...
