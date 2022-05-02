@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Micro-Services and Events</title>
+<meta name="author" content="(Roland Tritsch)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/beige.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Micro-Services and Events</h1><p class="subtitle">(Friends or Foes)</p>
+<h2 class="author">Roland Tritsch</h2><p class="date">Created: 2022-03-02 Wed 13:35</p>
+</section>
+
+<section>
+<section id="slide-org404743c">
+<h2 id="org404743c">Introduction</h2>
+<div class="outline-text-2" id="text-org404743c">
+</div>
+</section>
+<section id="slide-orgf3544cb">
+<h3 id="orgf3544cb">The Company</h3>
+</section>
+<section id="slide-orga8c03ec">
+<h3 id="orga8c03ec">The Platform</h3>
+</section>
+<section id="slide-org258ae2e">
+<h3 id="org258ae2e">The Roland</h3>
+</section>
+</section>
+<section>
+<section id="slide-org16edec4">
+<h2 id="org16edec4">Main messages</h2>
+<div class="outline-text-2" id="text-org16edec4">
+</div>
+</section>
+<section id="slide-org8499873">
+<h3 id="org8499873">Micro-Service (done right) are still you best option to scale an engineering org</h3>
+</section>
+<section id="slide-org906e1b6">
+<h3 id="org906e1b6">Events (done right) are still your best bet to scale a system of micro-services</h3>
+</section>
+<section id="slide-orgbf2b8dc">
+<h3 id="orgbf2b8dc">Let's NOT go all-in on all of it (pick-and-choose instead)</h3>
+</section>
+</section>
+<section>
+<section id="slide-orge9af784">
+<h2 id="orge9af784">The Company</h2>
+<div class="outline-text-2" id="text-orge9af784">
+</div>
+</section>
+<section id="slide-org60d3a2f">
+<h3 id="org60d3a2f">Founded &#x2026;</h3>
+</section>
+<section id="slide-orgd71c4da">
+<h3 id="orgd71c4da">Number of employees/engineers &#x2026;</h3>
+</section>
+<section id="slide-org65441f3">
+<h3 id="org65441f3">Meaningful/personal conversations at scale</h3>
+</section>
+<section id="slide-orge41c493">
+<h3 id="orge41c493">AI-assisted conversational marketing at it's best</h3>
+</section>
+</section>
+<section>
+<section id="slide-orgbc28185">
+<h2 id="orgbc28185">The Platform</h2>
+<div class="outline-text-2" id="text-orgbc28185">
+</div>
+</section>
+<section id="slide-orgadf64d7">
+<h3 id="orgadf64d7">Elixir, Typescript, Go, Swift, &#x2026;, RabbitMQ, Postgres, &#x2026;, Mesos, Singlarity, &#x2026;</h3>
+</section>
+<section id="slide-org2f8d098">
+<h3 id="org2f8d098">Shared-Nothing Micro-Services using (at-least-once) events for (eventually consistent) state-propagation</h3>
+</section>
+<section id="slide-org047d4d9">
+<h3 id="org047d4d9">Number of Services</h3>
+</section>
+<section id="slide-orgdb64c36">
+<h3 id="orgdb64c36">Number of Events</h3>
+</section>
+<section id="slide-org655a1ba">
+<h3 id="org655a1ba">Response rates, engagement, &#x2026;</h3>
+</section>
+</section>
+<section>
+<section id="slide-orge9b0564">
+<h2 id="orge9b0564">Terminology and Concepts</h2>
+<div class="outline-text-2" id="text-orge9b0564">
+</div>
+</section>
+<section id="slide-org2da67a4">
+<h3 id="org2da67a4">Event-Sourcing</h3>
+<ul>
+<li>a ledger of what happened</li>
+<li>very good business value</li>
+<li>logging facts vs. preserving state</li>
+<li>cannot be queried</li>
+
+</ul>
+</section>
+<section id="slide-orgae39299">
+<h3 id="orgae39299">Command Query Responsibility Segregation (CQRS)</h3>
+<ul>
+<li>create materialized views to read/query the data</li>
+<li>materialized views come and go (for business/technical reasons)</li>
+<li>they are eventually consistent</li>
+<li>very easy to build and maintain</li>
+
+</ul>
+</section>
+<section id="slide-org424f9d9">
+<h3 id="org424f9d9">Micro-Services</h3>
+<ul>
+<li>what's micro here (lines of code, &#x2026;)?</li>
+<li>single responsibility services!!!</li>
+<li>shared-nothing!!!</li>
+<li>using events to propagate state changes (build/maintain local/materialized views)</li>
+<li>anti-fragile (dampening) systems (changes and errors)</li>
+<li>philosophical question (conway's law): our org design and our system design mirror each other! Coincidence? Chicken? Egg?</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org3b1a9d9">
+<h2 id="org3b1a9d9">Lessons learned &#x2026;</h2>
+<div class="outline-text-2" id="text-org3b1a9d9">
+</div>
+</section>
+<section id="slide-org84f5e05">
+<h3 id="org84f5e05">Did not do it by the book</h3>
+<ul>
+<li>no DDD/no event-sourcing/no CQRS/no kafka</li>
+<li>started from first principles/with micro-services</li>
+<li>looking to solve specific problems</li>
+
+</ul>
+</section>
+<section id="slide-org11ad7b5">
+<h3 id="org11ad7b5">SOC: event-bus vs. event-store</h3>
+<ul>
+<li>publish/consume vs. read/write</li>
+<li>rabbitmq was a good choice</li>
+<li>S3 is hard(-ish) to use (for this use-case)</li>
+
+</ul>
+</section>
+<section id="slide-org7824b92">
+<h3 id="org7824b92">RMQ: availablity vs. throughput</h3>
+<ul>
+<li>ordered (entity) events vs. unordered (message) events</li>
+<li>clusters are not a unit of design, but a unit of configuration</li>
+<li>you cannot have the cake and eat it too (availablity vs. throughput)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org5b2e09c">
+<h2 id="org5b2e09c">Next steps/open questions &#x2026;</h2>
+<div class="outline-text-2" id="text-org5b2e09c">
+</div>
+</section>
+<section id="slide-org9046d57">
+<h3 id="org9046d57">Schema evolution</h3>
+<ul>
+<li>store rewrite vs. tollerant consume</li>
+
+</ul>
+</section>
+<section id="slide-org3d184d1">
+<h3 id="org3d184d1">Event-Store 2.0</h3>
+<ul>
+<li>ability to repair (hot-cache)</li>
+<li>snapshots</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgdce8a63">
+<h2 id="orgdce8a63">Notes &#x2026;</h2>
+<div class="outline-text-2" id="text-orgdce8a63">
+</div>
+</section>
+<section id="slide-orga2ea210">
+<h3 id="orga2ea210">Andrea</h3>
+<ul>
+<li>RMQ is smart (but slow(er) compared to &#x2026; kafka)</li>
+<li>seperation of concern between event-bus and event-store (problems with replaying events (looping)))</li>
+<li>how do you allow bad events in the store</li>
+<li>S3 is not the optimal choice (because the files are small; and a lot)</li>
+<li>S3 file processing is cumbersome</li>
+<li>using casandra as hot-storage</li>
+<li>parquet files might be better to store events in general</li>
+<li>putting more thought into the event-store &#x2026;
+<ul>
+<li>able to append/write</li>
+<li>able to replay/read</li>
+<li>able to repair/read-write</li>
+
+</ul></li>
+<li>create a binding for a queue is a "blocking" operation (this is why we have ex-ex-queue)</li>
+<li>is also used for complex routing</li>
+
+</ul>
+</section>
+<section id="slide-org91422dc">
+<h3 id="org91422dc">Karl</h3>
+<ul>
+<li>went well: schema, grpc (not json), &#x2026;</li>
+<li>better: publisher side validation</li>
+<li>better: consumer side validation</li>
+<li>better: dead-letter, get rid of the loops</li>
+<li>surprsingly good: iterate on service, standup new service, query event-store as ledger to run the business</li>
+<li>went well: core data model first (fans, subscriptions, clients); that way</li>
+<li>get digits to publish everything</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+width:"60%",
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+
+</script>
+</body>
+</html>

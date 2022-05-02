@@ -11,11 +11,106 @@
 #+options: num:nil
 #+reveal_theme: beige
 #+reveal_init_options: width:"60%"
+#+reveal_plugins: (notes)
+
+* The problem to solve
+#+BEGIN_NOTES
+Before we start, let's quickly talk about why we have this conversation.
+
+---
+
+A lot of people think that micro-services are a good idea for building
+a SaaS-platform. Me too. The obvious reason is that micro-services
+architectures allow you to scale the platform horizontally and allow
+you to deliver on the throughput requirements of a fast growing
+business. A not so obvious reason for using a micro-services
+architecture is to make sure you can not only scale the platform but
+also the engineering organisation. And that will become very quickly
+much more important than the scalablilty of the platform.
+
+---
+
+A lot of startups start the same way: With a lot of code that get's written
+by a small group of people. Lot's of people have written books about how
+to do this right and the exec summary is that this code is not suppose to
+last. It is code that you write to learn. It is code you write to verify
+and validate your business idea. And it can be a monolith.
+
+But then (god forbid) you establish an initial product market fit and some
+people actually start to use the product and then you start to learn about
+all of the features that are missing and you need to add more people and
+more delivery teams. And then you realize that a monolith is suboptimal,
+if you have a larger group of people working on features.
+
+---
+
+For the rest of the talk we will talk about ...
+
+- How the platform works and looks like and what problem(s) the platform
+  is solving
+- We will then talk about why and how we arrived at what we have today and
+  the lessons learned
+- And will last, but not least talk about where will go from here
+
+#+END_NOTES
 
 * Introduction
-** The Company
-** The Platform
 ** The Roland
+#+BEGIN_NOTES
+
+I am Roland. I am a Software Craftsman with a passion for highly scalable
+distributed systems and highly effective, remote-first software engineering
+organisations. I like functional programming languages like Haskell, Scala
+and Elixir. When I am not writing code I am probably hiking up a mountain
+somewhere. Ooohhh ... and I have a van that I have converted into a mobile
+office that I use to work from while I am on the road.
+
+#+END_NOTES
+
+** The Company
+#+BEGIN_NOTES
+
+Community was founded three years ago and has roughly 130 employees. About
+60 people work in product and engineering. We are remote-first and have
+no offices. But we meet frequently in WeWork locations around the world
+in smaller and larger groups to make sure we can build and maintain the
+relationships we want and need.
+
+We help thought-leaders to have more meaningful conversations with
+their audiences. Thought leaders can be artists (e.g. musicians),
+politicians, but also big brands like Nike or the NFL or MGM.
+
+We enable these conversations by means of ... wait for it ... text
+messages. This works because there is a new standard that the
+telcommunication companys have implemented that allows us to send AND
+receive large volumes of text messages using 10 digits long code
+numbers. This creates a very intimate experience. And ... you do not
+need to install anything. You just text the artist you want to follow
+and ... that's it. You are in.
+
+Customers are ...
+
+- ???
+- ???
+- ???
+
+#+END_NOTES
+
+** The Platform
+#+BEGIN_NOTES
+
+The platform is a shared-nothing micro-services architecture that uses
+events for eventually consistent state propagation.
+
+The technologies we are using are mainly Elixir, Typescript, Go,
+Swift, ..., RabbitMQ, Postgres, ..., Mesos, Singlarity, ...
+
+The platform processes roughly ???M messages per month. We have
+leaders that have communities that have half a million members. The
+largest communities we have have more than a million members.
+
+#+END_NOTES
+
 * Main messages
 ** Micro-Service (done right) are still you best option to scale an engineering org
 ** Events (done right) are still your best bet to scale a system of micro-services
@@ -31,3 +126,63 @@
 ** Number of Services
 ** Number of Events
 ** Response rates, engagement, ...
+* Terminology and Concepts
+** Event-Sourcing
+   - a ledger of what happened
+   - very good business value
+   - logging facts vs. preserving state
+   - cannot be queried
+** Command Query Responsibility Segregation (CQRS)
+   - create materialized views to read/query the data
+   - materialized views come and go (for business/technical reasons)
+   - they are eventually consistent
+   - very easy to build and maintain
+** Micro-Services
+   - what's micro here (lines of code, ...)?
+   - single responsibility services!!!
+   - shared-nothing!!!
+   - using events to propagate state changes (build/maintain local/materialized views)
+   - anti-fragile (dampening) systems (changes and errors)
+   - philosophical question (conway's law): our org design and our system design mirror each other! Coincidence? Chicken? Egg?
+* Lessons learned ...
+** Did not do it by the book
+   - no DDD/no event-sourcing/no CQRS/no kafka
+   - started from first principles/with micro-services
+   - looking to solve specific problems
+** SOC: event-bus vs. event-store
+   - publish/consume vs. read/write
+   - rabbitmq was a good choice
+   - S3 is hard(-ish) to use (for this use-case)
+** RMQ: availablity vs. throughput
+   - ordered (entity) events vs. unordered (message) events
+   - clusters are not a unit of design, but a unit of configuration
+   - you cannot have the cake and eat it too (availablity vs. throughput)
+* Next steps/open questions ...
+** Schema evolution
+   - store rewrite vs. tollerant consume
+** Event-Store 2.0
+   - ability to repair (hot-cache)
+   - snapshots
+* Notes ...
+** Andrea
+   - RMQ is smart (but slow(er) compared to ... kafka)
+   - seperation of concern between event-bus and event-store (problems with replaying events (looping)))
+   - how do you allow bad events in the store
+   - S3 is not the optimal choice (because the files are small; and a lot)
+   - S3 file processing is cumbersome
+   - using casandra as hot-storage
+   - parquet files might be better to store events in general
+   - putting more thought into the event-store ...
+     - able to append/write
+     - able to replay/read
+     - able to repair/read-write
+   - create a binding for a queue is a "blocking" operation (this is why we have ex-ex-queue)
+   - is also used for complex routing
+** Karl
+   - went well: schema, grpc (not json), ...
+   - better: publisher side validation
+   - better: consumer side validation
+   - better: dead-letter, get rid of the loops
+   - surprsingly good: iterate on service, standup new service, query event-store as ledger to run the business
+   - went well: core data model first (fans, subscriptions, clients); that way 
+   - get digits to publish everything
